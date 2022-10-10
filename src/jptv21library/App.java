@@ -5,13 +5,22 @@
  */
 package jptv21library;
 
+import entity.Author;
+import entity.Book;
+import java.util.Arrays;
 import java.util.Scanner;
+import managers.BookManager;
 
 /**
  *
  * @author pupil
  */
 public class App {
+    private Book[] books;
+    
+    public App(){
+        this.books=new Book[0];
+    }
     public void run(){
         boolean repeat= true;
         Scanner scanner= new Scanner(System.in);
@@ -35,6 +44,9 @@ public class App {
                     break;
                 case 1:
                     System.out.println("1 dobavit knigu");
+                    BookManager bookManager = new BookManager();
+                    this.books=Arrays.copyOf(this.books, this.books.length+1);
+                    this.books[this.books.length-1]= bookManager.createBook();
                     break;
                 case 2:
                     System.out.println("2 dobavit 4itatelya");
@@ -47,7 +59,18 @@ public class App {
                     break;
                 case 5:
                     System.out.println("5 spisok knig");
-                    break;    
+                    for (int i=0; i< books.length;i++){
+                        Book book = books[i];
+                        System.out.printf("Book{title = %s%n",book.getTitle());
+                        System.out.print("\tAuthors=[\n\t\t");
+                        for (int j = 0; j < book.getAuthors().length; j++){
+                            Author author= book.getAuthors()[j];
+                            System.out.printf("%s %s%n"
+                                    ,author.getFirstname(),author.getLastname());
+                            
+                        }
+                        break;
+                    }
                             
                     
                     
@@ -59,7 +82,7 @@ public class App {
         }while(repeat);
     }
 }
-                    
+                   
             
   
 
